@@ -1,0 +1,2 @@
+[console_scripts]
+wgtool = wg_tool.cli:cli

@@ -1,0 +1,6 @@
+click==8.3.0
+PyYAML==6.0.3
+six==1.17.0
+transitions==0.9.3
+# Editable install with no version control (wgtool==0.1.0)
+-e /home/noxmentis/dev/Wg-tool

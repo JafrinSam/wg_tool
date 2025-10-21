@@ -1,0 +1,40 @@
+# firewall_policy.yaml
+subnets:
+  test44_peer1:
+    cidr: 10.2.2.4/32
+  test44_peer2:
+    cidr: 10.2.2.5/32
+  test11_network:
+    cidr: 10.2.3.0/24  # Assuming test11 uses this subnet
+
+rules:
+  # Allow peer1 full access to everything
+  - from: test44_peer1
+    to: any
+    action: allow
+
+  # Allow peer2 to communicate with test11 network on specific ports
+  - from: test44_peer2
+    to: test11_network
+    proto: tcp
+    dst_ports: [80, 443, 22]
+    action: allow
+
+  # Allow peer2 to communicate with peer1
+  - from: test44_peer2
+    to: test44_peer1
+    action: allow
+
+  # Allow test11 network to access peer2 on specific services
+  - from: test11_network
+    to: test44_peer2
+    proto: tcp
+    dst_ports: [8080, 9023]
+    action: allow
+
+  # Allow internal communication within test11 network
+  - from: test11_network
+    to: test11_network
+    action: allow
+
+chain: FORWARD
